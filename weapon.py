@@ -7,3 +7,6 @@ class Weapon():
         self.strength = strength
         self.ap = ap
         self.damage = damage
+        
+    def __str__(self):
+        return f"{self.name} Attacks:{self.attacks} Hit:{self.hit}+ Strength:{self.strength} AP:{self.ap} Damage:{self.damage}"
