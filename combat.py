@@ -14,14 +14,14 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             return 3
         elif strength == toughness:
             return 4
-        elif strength < toughness:
-            return 5
-        elif strength <= toughness / 2:
+        elif strength * 2 <= toughness:
             return 6
+        else:
+            return 5 # strength < toughness   
         
     def fight_phase(self, attacker, defender):
         for weapon in attacker.weapons:
-            total_attacks = weapon.attacks * attacker.models
+            total_attacks = weapon.attacks * len(attacker.models)
             print(f"{attacker.name} attacks with {weapon.name} with {total_attacks} total attacks ")
             for hit in range(total_attacks):
                 hit_roll = self.dice_roll()
@@ -38,6 +38,4 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                         else:
                             print(f"Save failed! rolled a {save_roll} against a modified save of {modified_save} ")
                             defender.current_wounds -= weapon.damage
-                            
-    
                             
