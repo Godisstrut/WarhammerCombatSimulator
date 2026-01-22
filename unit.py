@@ -1,4 +1,4 @@
-class Unit():
+class Unit(): # Represents a unit composed of multiple models
     
     def __init__(self, name: str, model_factory, models: int):
         

@@ -1,4 +1,4 @@
-class Weapon():
+class Weapon(): # Represents a weapon with its respective stats
     def __init__(self, name: str, attacks: int, hit, strength, ap, damage: int):
         
         self.name = name

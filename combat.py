@@ -2,7 +2,7 @@ import random, time
 from weapon import Weapon
 from model import Model
 
-class Combat():
+class Combat(): # Manages the combat phases between two units, indcluding attack rolls, wound rolls, and saving throws.
 
     def dice_roll(self): # Simulates a d6 roll
         return random.randint(1, 6)
