@@ -16,7 +16,7 @@ class Model():
     def set_name(self, name: str):
         self.name = name
         
-    def is_alive(self):
+    def is_alive(self): # Checks if a model is still alive
         return self.current_wounds > 0
     
     def __str__(self):

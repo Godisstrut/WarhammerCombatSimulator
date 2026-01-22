@@ -4,10 +4,10 @@ from model import Model
 
 class Combat():
 
-    def dice_roll(self):
+    def dice_roll(self): # Simulates a d6 roll
         return random.randint(1, 6)
     
-    def wound_rules(self, strength, toughness):
+    def wound_rules(self, strength, toughness): # Wounds rolls needed based on strength vs toughness, follows the standard 40k tabletop rules
         if strength >= toughness * 2:
             return 2
         elif strength > toughness:
