@@ -32,13 +32,13 @@ class Matchup(): # Factory class to create preset matchups between different uni
     
     def orks_vs_space_marine_intercessors(self): # Creates a preset matchup between ork boyz and space marine intercessors
         orks = Unit("Ork Boyz", self.create_ork_boy, 19)
-        orks.models.append(self.create_ork_nob()) # Adds a ork nob leader to the unit
+        orks.add_model(self.create_ork_nob()) # Adds a ork nob leader to the unit
         space_marine_intercessors = Unit("Assault Intercessors", self.create_assault_intercessor, 9)
-        space_marine_intercessors.models.append(self.create_intercessor_sergeant()) # Adds a sergeant to the unit
+        space_marine_intercessors.add_model(self.create_intercessor_sergeant()) # Adds a sergeant to the unit
         return orks, space_marine_intercessors
     
     def orks_vs_hormaguants(self): # Creates a preset matchup between ork boyz and tyranid hormagaunts
         orks = Unit("Ork Boyz", self.create_ork_boy, 19)
-        orks.models.append(self.create_ork_nob()) 
+        orks.add_model(self.create_ork_nob()) 
         hormagaunts = Unit("Hormagaunts", self.create_hormaguant, 20)
         return orks, hormagaunts

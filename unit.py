@@ -4,7 +4,10 @@ class Unit(): # Represents a unit composed of multiple models
         
         self.name = name
         self.model_factory = model_factory
-        self.models = models
+        self.models = []
+        
+        for model in range(models):
+            self.models.append(model_factory())
     
     def alive_models(self): # Checks and returns a list of alive models
         alive = []
@@ -16,5 +19,9 @@ class Unit(): # Represents a unit composed of multiple models
     def is_destroyed(self): # Checks if the unit is destroyed
         return len(self.alive_models()) == 0
     
+    def add_model(self, model): # Adds a model to the unit, used for sergeants
+        self.models.append(model)
+
     def __str__(self):
-        return f"Unit: {self.name} has {self.models} models "
+        return f"Unit: {self.name} has {len(self.models)} models "
+    
