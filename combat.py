@@ -21,13 +21,21 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         
     def combat_round(self, unit_a, unit_b): # Simulates a full combat round between two units, letting both sides fight  
         print("=== FIGHT PHASE ===")
-        self.fight_phase(unit_a, unit_b)
+        
+        kills = self.fight_phase(unit_a, unit_b)
+        print(f"{unit_a.name} killed {kills} models this round  ")
+        print(f"{unit_b.name} remaining: {len(unit_b.alive_models())} models ")
         
         if not unit_b.is_destroyed(): # Checks if the defender is alive to fight back
             print("Other side fights back! ")
-            self.fight_phase(unit_b, unit_a)
+            input("Press Enter to continue... ")
+            
+            kills = self.fight_phase(unit_b, unit_a)
+            print(f"{unit_b.name} killed {kills} {unit_a.name} models this round ")
+            print(f"{unit_a.name} remaining: {len(unit_a.alive_models())} models ")
             
         print("=== END OF FIGHT PHASE ===")
+        input("Press Enter to continue... ")
         
         
     def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
@@ -35,6 +43,8 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         print("="*20)
         print(f"{attacker.name} vs {defender.name}! ")
         print("="*20)
+        
+        kills_this_phase = 0
         
         for model in attacker.alive_models():
             weapon = model.weapon
@@ -46,22 +56,25 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                 hit_roll = self.dice_roll()
                 if hit_roll >= weapon.hit:
                     print(f"Hit with a {hit_roll} ")
-                    time.sleep(1)
+                    time.sleep(0.5)
                     wound_needed = self.wound_rules(weapon.strength, defender.alive_models()[0].toughness)
                     wound_roll = self.dice_roll()
                     if wound_roll >= wound_needed:
                         print(f"Wounded with a {wound_roll} ")
-                        time.sleep(1)
+                        time.sleep(0.5)
                         target = defender.alive_models()[0]
                         save_roll = self.dice_roll()
                         modified_save = target.save + weapon.ap
                         if save_roll < modified_save:
                             print(f"Save failed with a {save_roll} ")
-                            time.sleep(1)
+                            time.sleep(0.5)
                             target.current_wounds -= weapon.damage
                             print(f"{target.name} takes {weapon.damage} damage! ")
                             print(f"{target.name} has {target.current_wounds} wounds remaining ")
                             
                             if target.current_wounds <= 0:
                                 print(f" {target.name} is slain! ")
+                                kills_this_phase += 1
+        
+        return kills_this_phase
                             
