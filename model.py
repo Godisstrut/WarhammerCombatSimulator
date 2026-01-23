@@ -1,7 +1,7 @@
 from weapon import Weapon
 
 class Model(): # Represents a single model with its stats and weapon
-    def __init__(self, name: str, toughness: int, wounds: int, save: int, weapon: Weapon):
+    def __init__(self, name: str, toughness: int, wounds: int, save: int, weapon: Weapon): #Todo lägg till invulsave
         
         self.name = name
         self.toughness = toughness

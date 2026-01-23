@@ -8,7 +8,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         return random.randint(1, 6)
     
     def unit_status(self, unit):
-        print(f"{unit.name}: {len(unit.alive_models())}")
+        print(f"{unit.name}: {len(unit.alive_models())}") # Prints number of alive models in a unit
     
     def wound_rules(self, strength, toughness): # Wounds rolls needed based on strength vs toughness, follows the standard 40k tabletop rules
         if strength >= toughness * 2:
@@ -49,15 +49,15 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         print(f" {attacker.name} hitting {defender.name}! ")
         print("="*20)
         
-        kills_this_phase = 0
+        kills_this_phase = 0 # Counts number of kills made per phase
         
-        for model in attacker.alive_models():
+        for model in attacker.alive_models(): # Checks number of alive models that are eligble to attack
             weapon = model.weapon
             print(f"{model.name} attacks with {weapon.name} ")
             
             for attack in range(weapon.attacks):
-                if defender.is_destroyed():
-                    return kills_this_phase
+                if defender.is_destroyed(): 
+                    return kills_this_phase # Stops attack sequencing if all defender models are destroyed
                 hit_roll = self.dice_roll()
                 if hit_roll >= weapon.hit:
                     print(f"Hit with a {hit_roll} ")
