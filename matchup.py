@@ -42,3 +42,8 @@ class Matchup(): # Factory class to create preset matchups between different uni
         orks.add_model(self.create_ork_nob()) 
         hormagaunts = Unit("Hormagaunts", self.create_hormaguant, 20)
         return orks, hormagaunts
+    
+    def nobz_vs_bladeguard_veterans(self):
+        ork_nobz = Unit("Ork Nobz", self.create_ork_nob, 5)
+        space_marine_bladeguard = Unit("Bladeguard Veterans", self.create_bladeguard_veteran, 3)
+        return ork_nobz, space_marine_bladeguard

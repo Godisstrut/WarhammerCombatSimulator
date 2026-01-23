@@ -28,7 +28,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         self.unit_status(unit_b)
         input("Press Enter to begin the combat ")
         
-        kills = self.fight_phase(unit_a, unit_b)
+        kills = self.fight_phase(unit_a, unit_b) # Begins fightphase with unit_a starting 
         print()
         print(f"{unit_a.name} killed {kills} models this round  ")
         print(f"{unit_b.name} remaining: {len(unit_b.alive_models())} models ")
@@ -38,7 +38,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             print()
             time.sleep(3)
             
-            kills = self.fight_phase(unit_b, unit_a)
+            kills = self.fight_phase(unit_b, unit_a) # Switches the side with unit_b hitting back
             print(f"The {unit_b.name} killed {kills} {unit_a.name} models this round ")
             print(f"{unit_a.name} remaining models: {len(unit_a.alive_models())} ")
         
@@ -61,18 +61,18 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                 hit_roll = self.dice_roll()
                 if hit_roll >= weapon.hit:
                     print(f"Hit with a {hit_roll} ")
-                    time.sleep(0.5)
+                    time.sleep(0.75)
                     wound_needed = self.wound_rules(weapon.strength, defender.alive_models()[0].toughness)
                     wound_roll = self.dice_roll()
                     if wound_roll >= wound_needed:
                         print(f"Wounded with a {wound_roll} ")
-                        time.sleep(0.5)
+                        time.sleep(0.75)
                         target = defender.alive_models()[0]
                         save_roll = self.dice_roll()
                         modified_save = target.save + weapon.ap
                         if save_roll < modified_save:
-                            print(f"Save failed with a {save_roll} ")
-                            time.sleep(0.5)
+                            print(f"Save failed with a {save_roll}, needed a {modified_save}+ ")
+                            time.sleep(0.75)
                             target.current_wounds -= weapon.damage
                             print(f"{target.name} takes {weapon.damage} damage! ")
                             print(f"{target.name} has {target.current_wounds} wounds remaining ")
