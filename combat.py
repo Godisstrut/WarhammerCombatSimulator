@@ -7,6 +7,9 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
     def dice_roll(self): # Simulates a d6 roll
         return random.randint(1, 6)
     
+    def unit_status(self, unit):
+        print(f"{unit.name}: {len(unit.alive_models())}")
+    
     def wound_rules(self, strength, toughness): # Wounds rolls needed based on strength vs toughness, follows the standard 40k tabletop rules
         if strength >= toughness * 2:
             return 2
@@ -20,19 +23,23 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             return 5 # strength < toughness   
         
     def combat_round(self, unit_a, unit_b): # Simulates a full combat round between two units, letting both sides fight  
-        print("=== FIGHT PHASE ===")
+        self.unit_status(unit_a)
+        print("===== VS =====")
+        self.unit_status(unit_b)
+        input("Press Enter to begin the combat ")
         
         kills = self.fight_phase(unit_a, unit_b)
         print(f"{unit_a.name} killed {kills} models this round  ")
         print(f"{unit_b.name} remaining: {len(unit_b.alive_models())} models ")
         
         if not unit_b.is_destroyed(): # Checks if the defender is alive to fight back
-            print("Other side fights back! ")
-            input("Press Enter to continue... ")
+            print("Switching sides... ")
+            print()
+            time.sleep(3)
             
             kills = self.fight_phase(unit_b, unit_a)
-            print(f"{unit_b.name} killed {kills} {unit_a.name} models this round ")
-            print(f"{unit_a.name} remaining: {len(unit_a.alive_models())} models ")
+            print(f"The {unit_b.name} killed {kills} {unit_a.name} models this round ")
+            print(f"{unit_a.name} remaining models: {len(unit_a.alive_models())} ")
             
         print("=== END OF FIGHT PHASE ===")
         input("Press Enter to continue... ")
@@ -41,7 +48,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
     def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
         
         print("="*20)
-        print(f"{attacker.name} vs {defender.name}! ")
+        print(f" {attacker.name} hitting {defender.name}! ")
         print("="*20)
         
         kills_this_phase = 0

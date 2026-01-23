@@ -14,8 +14,8 @@ class Main():
         
     def menu(self):
         print("Menu: ")
-        print("1. 20 ork boyz vs 10 space marine intercessors ")
-        print("2. 20 ork boyz vs 20 tyranid hormagaunts ")
+        print("1. 10 ork boyz vs 10 space marine intercessors ")
+        print("2. 10 ork boyz vs 20 tyranid hormagaunts ")
         print("3. Exit program ")
         
     def run(self):
@@ -33,7 +33,7 @@ class Main():
                 self.run_combat(unit_a, unit_b, combat)
                 
             elif user_choice == "2":
-                unit_a, unit_b = matchup.orks_vs_hormagaunts()
+                unit_a, unit_b = matchup.orks_vs_hormaguants()
                 self.run_combat(unit_a, unit_b, combat)
                 
             elif user_choice == "3":
@@ -49,13 +49,15 @@ class Main():
             
     def run_combat(self, unit_a: Unit, unit_b: Unit, combat: Combat):
         print("=" * 20)
-        print(f"Starting combat: {unit_a.name} vs {unit_b.name}")
+        print("Initializing combat... ")
         print("=" * 20)
+        time.sleep(1)
+        print()
 
         round_number = 1
 
         while not unit_a.is_destroyed() and not unit_b.is_destroyed():
-            print(f"=== ROUND {round_number} ===")
+            print(f"=== ROUND: {round_number} ===")
             combat.combat_round(unit_a, unit_b)
             time.sleep(1)
             round_number += 1
