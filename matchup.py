@@ -21,7 +21,7 @@ class Matchup(): # Factory class to create preset matchups between different uni
         return Model("Intercessor Sergeant", 4, 2, 3, power_fist)
     
     def create_bladeguard_veteran(self):
-        power_sword = Weapon("Master Crafted Power Sword", 3, 4, 5, 2, 2)
+        power_sword = Weapon("Master Crafted Power Sword", 4, 3, 5, 2, 2)
         return Model("Bladeguard Veteran", 4, 3, 3, power_sword)
     
     def create_hormaguant(self):

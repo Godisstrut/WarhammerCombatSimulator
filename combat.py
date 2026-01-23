@@ -29,6 +29,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         input("Press Enter to begin the combat ")
         
         kills = self.fight_phase(unit_a, unit_b)
+        print()
         print(f"{unit_a.name} killed {kills} models this round  ")
         print(f"{unit_b.name} remaining: {len(unit_b.alive_models())} models ")
         
@@ -40,9 +41,6 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             kills = self.fight_phase(unit_b, unit_a)
             print(f"The {unit_b.name} killed {kills} {unit_a.name} models this round ")
             print(f"{unit_a.name} remaining models: {len(unit_a.alive_models())} ")
-            
-        print("=== END OF FIGHT PHASE ===")
-        input("Press Enter to continue... ")
         
         
     def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
@@ -59,7 +57,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             
             for attack in range(weapon.attacks):
                 if defender.is_destroyed():
-                    return
+                    return kills_this_phase
                 hit_roll = self.dice_roll()
                 if hit_roll >= weapon.hit:
                     print(f"Hit with a {hit_roll} ")
