@@ -53,13 +53,14 @@ class Main():
             input("Press Enter to return to the main menu ")
             
     def run_combat(self, unit_a: Unit, unit_b: Unit, combat: Combat): # Runs the combat loop between two units
-        print("=" * 20)
-        print("Initializing combat... ")
-        print("=" * 20)
         
         mode = ""
         while mode not in ("slow", "fast"):
-            mode = input("Fast paced combat or slow paced? ").lower()
+            mode = input("Fast or slow paced combat? ").lower()
+            
+        print("=" * 20)
+        print("Initializing combat... ")
+        print("=" * 20)
         
         time.sleep(1)
         print()
