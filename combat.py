@@ -54,6 +54,8 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         kills_this_phase = 0  # Counts number of kills made per phase
         
         for model in attacker.alive_models(): # Checks number of alive models that are eligble to attack
+            if defender.is_destroyed(): 
+                    return kills_this_phase # Stops attack sequencing if all defender models are destroyed
             weapon = model.weapon
             print()
             print(f"{model.name} attacks with his {weapon.name}! {weapon.attacks}A") # Prints name and number of a attacks for a model
