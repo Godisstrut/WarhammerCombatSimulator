@@ -56,6 +56,11 @@ class Main():
         print("=" * 20)
         print("Initializing combat... ")
         print("=" * 20)
+        
+        mode = ""
+        while mode not in ("slow", "fast"):
+            mode = input("Fast paced combat or slow paced? ").lower()
+        
         time.sleep(1)
         print()
 
@@ -63,7 +68,7 @@ class Main():
 
         while not unit_a.is_destroyed() and not unit_b.is_destroyed():
             print(f"=== ROUND: {round_number} ===")
-            combat.combat_round(unit_a, unit_b)
+            combat.combat_round(unit_a, unit_b, mode)
             time.sleep(1)
             round_number += 1
 
