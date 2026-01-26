@@ -46,7 +46,68 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             print(f"{unit_a.name} remaining models: {len(unit_a.alive_models())} ")
         
         
-    def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
+    def fight_phase(self, attacker, defender):
+        print("="*20)
+        print(f" {attacker.name} hitting {defender.name}! ")    
+        print("="*20)
+        
+        kills_this_phase = 0  # Counts number of kills made per phase
+        
+        for model in attacker.alive_models():
+            weapon = model.weapon
+            print()
+            print(f"{model.name} attacks with his {weapon.name}! {weapon.attacks}A")
+            time.sleep(1)
+            
+            
+            hits = 0
+            for attack in range(weapon.attacks):
+                if self.dice_roll() >= weapon.hit:
+                    hits += 1
+            print(f"Hits: {hits}")
+            if hits == 0:
+                continue
+            time.sleep(1)
+            
+            
+            target = defender.alive_models()[0]
+            wound_needed = self.wound_rules(weapon.strength, target.toughness)
+            wounds = 0
+            for hit in range(hits):
+                if self.dice_roll() >= wound_needed:
+                    wounds += 1
+            print(f"Wounds: {wounds}")
+            if wounds == 0:
+                continue
+            time.sleep(1)
+            
+            
+            failed_saves = 0
+            for wound in range(wounds):
+                save_roll = self.dice_roll()
+                modified_save = target.save + weapon.ap
+                if save_roll < modified_save:
+                    failed_saves += 1
+            print(f"Unsaved wounds: {failed_saves}")
+            time.sleep(1)
+            
+            
+            for save in range(failed_saves):
+                if defender.is_destroyed():
+                    break
+                target = defender.alive_models()[0]
+                target.current_wounds -= weapon.damage
+                print(f"{target.name} takes {weapon.damage} damage! ")
+                print(f"{target.name} has {target.current_wounds} wounds remaining ")
+                if target.current_wounds <= 0:
+                    print(f"{target.name} is slain!")
+                    kills_this_phase += 1
+            time.sleep(1)
+        
+        return kills_this_phase
+
+        
+    """def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
         
         print("="*20)
         print(f" {attacker.name} hitting {defender.name}! ")    
@@ -85,7 +146,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                                 print(f"A {target.name} is slain! ")
                                 kills_this_phase += 1
         
-        return kills_this_phase 
+        return kills_this_phase """
                             
     def fight_phase_fast(self, attacker, defender): #todo: Fix printing same name for entire unit
         print("="*20)
@@ -154,4 +215,3 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         print(f"Models slain: {kills_this_phase}")
 
         return kills_this_phase      
-        

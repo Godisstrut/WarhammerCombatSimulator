@@ -13,7 +13,7 @@ class Matchup(): # Factory class to create preset matchups between different uni
         return Model("Ork Nob", 5, 2, 4, power_claw)
     
     def create_assault_intercessor(self):
-        chain_sword = Weapon("Astartes Chainsword", 3, 4, 4, 1, 1)
+        chain_sword = Weapon("Astartes Chainsword", 4, 3, 4, 1, 1)
         return Model("Assault Intercessor", 4, 2, 3, chain_sword)
     
     def create_intercessor_sergeant(self):
