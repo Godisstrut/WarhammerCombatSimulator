@@ -1,6 +1,7 @@
 import random, time
 from weapon import Weapon
 from model import Model
+from collections import defaultdict
 
 class Combat(): # Manages the combat phases between two units, indcluding attack rolls, wound rolls, and saving throws.
 
@@ -48,7 +49,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
     def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
         
         print("="*20)
-        print(f" {attacker.name} hitting {defender.name}! ")
+        print(f" {attacker.name} hitting {defender.name}! ")    
         print("="*20)
         
         kills_this_phase = 0 # Counts number of kills made per phase
@@ -85,60 +86,71 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         
         return kills_this_phase 
                             
-    def fight_phase_fast(self, attacker, defender):
+    def fight_phase_fast(self, attacker, defender): #todo: Fix sergeant/leader weapon attacks
         print("="*20)
         print(f" {attacker.name} hitting {defender.name}! ")
         print("="*20)
         
-        hits = 0
-        wounds = 0
-        failed_saves = 0
-        total_attacks = 0
+        attack_pools = defaultdict(int)
         kills_this_phase = 0
-        
+        total_hits = 0
+        total_wounds = 0
+        total_failed_saves = 0
+
         for model in attacker.alive_models():
-            total_attacks += model.weapon.attacks
-            
-        print(f"{attacker.name} has {total_attacks} total attacks ")
-        
-        for attack in range(total_attacks):
-            if self.dice_roll() >= attacker.alive_models()[0].weapon.hit:
-                hits += 1
-        print(f"{hits} hits made it through! ")
-        time.sleep(2)
-        
-        if hits == 0:
-            return 0
-        
-        target = defender.alive_models()[0]
-        wound_needed = self.wound_rules(attacker.alive_models()[0].weapon.strength, target.toughness)
-        for hit in range(hits):
-            if self.dice_roll() >= wound_needed:
-                wounds += 1
-                
-        print(f"{wounds} wounds landed! ")
-        time.sleep(2)
-        
-        for wound in range(wounds):
-            save_roll = self.dice_roll()
-            modified_save = target.save + attacker.alive_models()[0].weapon.ap
-            
-            if save_roll < modified_save:
-                failed_saves +=1
-                
-        print(f"{failed_saves} unsaved wounds! ")
-        time.sleep(2)
-        
-        for saves in range(failed_saves):
+            attack_pools[model.weapon] += model.weapon.attacks
+
+        for weapon, attacks in attack_pools.items():
             if defender.is_destroyed():
                 break
-            
+
+            print()
+            print(f" {attacker.name} attacks with his {weapon.name}: {attacks} attacks")
+
+            hits = 0
+            for attack in range(attacks):
+                if self.dice_roll() >= weapon.hit:
+                    hits += 1
+
+            total_hits += hits
+            if hits == 0:
+                continue
+
             target = defender.alive_models()[0]
-            target.current_wounds -= attacker.alive_models()[0].weapon.damage
-            
-            if target.current_wounds <= 0:
-                kills_this_phase += 1
-        
-        print(f"{kills_this_phase} models slain! ")
-        return kills_this_phase        
+            wound_needed = self.wound_rules(weapon.strength, target.toughness)
+
+            wounds = 0
+            for hit in range(hits):
+                if self.dice_roll() >= wound_needed:
+                    wounds += 1
+
+            total_wounds += wounds
+            if wounds == 0:
+                continue
+
+            failed_saves = 0
+            for wound in range(wounds):
+                save_roll = self.dice_roll()
+                if save_roll < target.save + weapon.ap:
+                    failed_saves += 1
+
+            total_failed_saves += failed_saves
+
+            for save in range(failed_saves):
+                if defender.is_destroyed():
+                    break
+
+                target = defender.alive_models()[0]
+                target.current_wounds -= weapon.damage
+
+                if target.current_wounds <= 0:
+                    kills_this_phase += 1
+                    
+        print()
+        print(f"Total hits: {total_hits}")
+        print(f"Total wounds: {total_wounds}")
+        print(f"Unsaved wounds: {total_failed_saves}")
+        print(f"Models slain: {kills_this_phase}")
+
+        return kills_this_phase      
         
