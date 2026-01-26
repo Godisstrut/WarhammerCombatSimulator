@@ -70,7 +70,6 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                 continue
             time.sleep(1)
             
-            
             target = defender.alive_models()[0]
             wound_needed = self.wound_rules(weapon.strength, target.toughness)
             wounds = 0
@@ -86,18 +85,16 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             for wound in range(wounds): # Takes the successful wounds and checks how many saves are failed
                 save_roll = self.dice_roll()
                 modified_save = target.save + weapon.ap # The actual save of a model, save - the armor piercing value
+                print(f"Save failed with a roll of {save_roll}, needed a {modified_save}+ ")
                 if save_roll < modified_save:
                     failed_saves += 1
             print(f"Unsaved wounds: {failed_saves}")
             time.sleep(1)
             
             for save in range(failed_saves):
-                if defender.is_destroyed():
-                    break
                 target = defender.alive_models()[0]
                 target.current_wounds -= weapon.damage
-                print(f"{target.name} takes {weapon.damage} damage! ")
-                print(f"{target.name} has {target.current_wounds} wounds remaining ")
+                print(f"{target.name} takes {weapon.damage} damage! {target.name} has {target.current_wounds} wounds remaining ")
                 if target.current_wounds <= 0:
                     print(f"{target.name} is slain!")
                     kills_this_phase += 1

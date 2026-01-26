@@ -49,7 +49,7 @@ class Main():
                 print("Invalid options, choose between an option (1-4) ")
                 continue
             
-            print("Thanks for playing! ")
+            print("Feel like playing again? ")
             input("Press Enter to return to the main menu ")
             
     def run_combat(self, unit_a: Unit, unit_b: Unit, combat: Combat): # Runs the combat loop between two units
@@ -62,7 +62,7 @@ class Main():
         print("Initializing combat... ")
         print("=" * 20)
         
-        time.sleep(1)
+        time.sleep(2)
         print()
 
         round_number = 1
