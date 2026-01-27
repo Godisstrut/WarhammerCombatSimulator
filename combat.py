@@ -163,10 +163,14 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         for model in attacker.alive_models():
             attack_pools[model.weapon] += model.weapon.attacks
 
+        print("Attacks: ")
+        for weapon, attacks in attack_pools.items():
+            print(f"{weapon.name}: {attacks} attacks")
+        
         for weapon, attacks in attack_pools.items():
             if defender.is_destroyed():
                 break
-
+            
             hits = 0
             for attack in range(attacks):
                 if self.dice_roll() >= weapon.hit:
@@ -191,7 +195,12 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             failed_saves = 0
             for wound in range(wounds):
                 save_roll = self.dice_roll()
-                if save_roll < target.save + weapon.ap:
+                modified_save = target.save + weapon.ap # The actual save of a model, save - the armor piercing value. eg 3+ save with 1 ap becomes 4+
+                if target.invul_save is not None: # Checks if the target has an invulnerable save
+                    save_needed = min(modified_save, target.invul_save) # Uses the lowest, e.g best save option. Either armor or invulnerable save
+                else:
+                    save_needed = modified_save
+                if save_roll < save_needed:
                     failed_saves += 1
 
             total_failed_saves += failed_saves

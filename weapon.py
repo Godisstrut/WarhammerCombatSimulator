@@ -1,5 +1,5 @@
 class Weapon(): # Represents a weapon with its respective stats
-    def __init__(self, name: str, attacks: int, hit, strength, ap, damage: int):
+    def __init__(self, name: str, attacks: int, hit, strength, ap, damage: int): # Todo Lägg till lethal/sustained hits etc som vapen kan ha
         
         self.name = name
         self.attacks = attacks

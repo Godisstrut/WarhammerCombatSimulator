@@ -51,7 +51,7 @@ class Main():
                 break
                 
             else:
-                print("Invalid options, choose between an option (1-4) ")
+                print("Invalid options, choose between an option (1-5) ")
                 continue
             
             print("Feel like playing again? ")
