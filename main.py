@@ -17,7 +17,8 @@ class Main():
         print("1. 15 Ork Boyz vs 10 Space marine Assualt Intercessors ")
         print("2. 10 Ork Boyz vs 20 Tyranid Hormagaunts ")
         print("3. 5 Ork Nobz vs 3 Bladeguard Veterans")
-        print("4. Exit program ")
+        print("4. 3 Tyranid Warriors vs 3 Bladeguard Veterans")
+        print("5. Exit program ")
          
     def run(self): # Main method for running the program
         self.welcome_message()
@@ -42,6 +43,10 @@ class Main():
                 self.run_combat(unit_a, unit_b, combat)
                 
             elif user_choice == "4":
+                unit_a, unit_b = matchup.warriors_vs_bladeguard_veterans()
+                self.run_combat(unit_a, unit_b, combat)
+            
+            elif user_choice == "5":
                 print("You chose to exit the program, byebye! ")
                 break
                 

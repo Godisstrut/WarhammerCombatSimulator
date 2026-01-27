@@ -31,15 +31,16 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         
         fight_mode = self.fight_phase_fast if mode == "fast" else self.fight_phase
         
-        kills = fight_mode(unit_a, unit_b) # Begins fightphase with unit_a starting 
-        print()
-        print(f"{unit_a.name} killed {kills} models this round  ")
-        print(f"{unit_b.name} remaining: {len(unit_b.alive_models())} models ")
+        if not unit_a.is_destroyed():
+            kills = fight_mode(unit_a, unit_b) # Begins fightphase with unit_a starting 
+            print()
+            print(f"{unit_a.name} killed {kills} models this round  ")
+            print(f"{unit_b.name} remaining: {len(unit_b.alive_models())} models ")
         
         if not unit_b.is_destroyed(): # Checks if the defender is alive to fight back
             print("Switching sides... ")
             print()
-            time.sleep(3)
+            time.sleep(2)
             
             kills = fight_mode(unit_b, unit_a) # Switches the side with unit_b hitting back
             print(f"The {unit_b.name} killed {kills} {unit_a.name} models this round ")

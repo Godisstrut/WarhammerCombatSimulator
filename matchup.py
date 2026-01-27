@@ -9,7 +9,7 @@ class Matchup(): # Factory class to create preset matchups between different uni
         return Model("Ork Boy", 5, 1, 5, None, choppa)
     
     def create_ork_nob(self):
-        power_claw = Weapon("Power Claw", 3, 4, 8, 2, 2)
+        power_claw = Weapon("Power Claw", 3, 4, 9, 2, 2)
         return Model("Ork Nob", 5, 2, 4, None, power_claw)
     
     def create_assault_intercessor(self):
@@ -27,6 +27,10 @@ class Matchup(): # Factory class to create preset matchups between different uni
     def create_hormaguant(self):
         scything_talon = Weapon("Scything Talons", 3, 4, 3, 1, 1)
         return Model("Hormagaunt", 3, 1, 5, None, scything_talon)
+    
+    def create_tyranid_warrior(self):
+        claws_talons = Weapon("Claws and Talons", 6, 3, 5, 2, 1)
+        return Model("Tyranid Warrior", 5, 3, 4, None, claws_talons) 
     
     # PRESET MATCHUPS
     
@@ -47,3 +51,8 @@ class Matchup(): # Factory class to create preset matchups between different uni
         ork_nobz = Unit("Ork Nobz", self.create_ork_nob, 5)
         space_marine_bladeguard = Unit("Bladeguard Veterans", self.create_bladeguard_veteran, 3)
         return ork_nobz, space_marine_bladeguard
+    
+    def warriors_vs_bladeguard_veterans(self):
+        tyranid_warriors = Unit("Tyranid Warriors", self.create_tyranid_warrior, 3)
+        space_marine_bladeguard = Unit("Bladeguard Veterans", self.create_bladeguard_veteran, 3)
+        return tyranid_warriors, space_marine_bladeguard
