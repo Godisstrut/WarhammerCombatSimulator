@@ -84,10 +84,14 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             failed_saves = 0
             for wound in range(wounds): # Takes the successful wounds and checks how many saves are failed
                 save_roll = self.dice_roll()
-                modified_save = target.save + weapon.ap # The actual save of a model, save - the armor piercing value
-                print(f"Save failed with a roll of {save_roll}, needed a {modified_save}+ ")
-                if save_roll < modified_save:
+                modified_save = target.save + weapon.ap # The actual save of a model, save - the armor piercing value. eg 3+ save with 1 ap becomes 4+
+                if target.invul_save is not None:
+                    save_needed = min(modified_save, target.invul_save)
+                else:
+                    save_needed = modified_save
+                if save_roll < save_needed:
                     failed_saves += 1
+                    print(f"Save failed with a roll of {save_roll}, needed a {save_needed}+ ") # Prints save roll needed for the user, for clarity
             print(f"Unsaved wounds: {failed_saves}")
             time.sleep(1)
             
@@ -103,7 +107,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         return kills_this_phase
 
         
-    """def fight_phase(self, attacker, defender): # Function handling combat logic in a fight phase between two units
+    def fight_phase_slow(self, attacker, defender): # Function handling combat logic in a fight phase between two units
         
         print("="*20)
         print(f" {attacker.name} hitting {defender.name}! ")    
@@ -142,7 +146,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                                 print(f"A {target.name} is slain! ")
                                 kills_this_phase += 1
         
-        return kills_this_phase """
+        return kills_this_phase 
                             
     def fight_phase_fast(self, attacker, defender): #todo: Fix printing same name for entire unit
         print("="*20)

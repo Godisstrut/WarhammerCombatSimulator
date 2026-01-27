@@ -14,7 +14,7 @@ class Main():
         
     def menu(self): # Presents the user with a menu of preset matchups
         print("Menu: ")
-        print("1. 10 Ork Boyz vs 10 Space marine Assualt Intercessors ")
+        print("1. 15 Ork Boyz vs 10 Space marine Assualt Intercessors ")
         print("2. 10 Ork Boyz vs 20 Tyranid Hormagaunts ")
         print("3. 5 Ork Nobz vs 3 Bladeguard Veterans")
         print("4. Exit program ")

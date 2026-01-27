@@ -1,12 +1,13 @@
 from weapon import Weapon
 
 class Model(): # Represents a single model with its stats and weapon
-    def __init__(self, name: str, toughness: int, wounds: int, save: int, weapon: Weapon): #Todo lägg till invulsave
+    def __init__(self, name: str, toughness: int, wounds: int, save: int, invul_save: int | None, weapon: Weapon): #Todo lägg till invulsave
         
         self.name = name
         self.toughness = toughness
         self.max_wounds = wounds
         self.current_wounds = wounds
+        self.invul_save = invul_save
         self.save = save
         self.weapon = weapon
     
@@ -20,9 +21,12 @@ class Model(): # Represents a single model with its stats and weapon
         return self.current_wounds > 0
     
     def __str__(self):
-        return f"{self.name} Toughness:{self.toughness} Wounds:{self.max_wounds} Save:{self.save}+ Weapon:{self.weapon}"
+        invulerable_save = f"{self.invul_save}+" if self.invul_save is not None else "-"
+        return f"{self.name} Toughness:{self.toughness} Wounds:{self.max_wounds} Save:{self.save}+ Invulnerable Save:{invulerable_save} Weapon: {self.weapon}"
 
-ork_boy = Model("Ork Boyz", 5, 1, 5, weapon = Weapon("Choppa", 3, 3, 4, 1, 1))
-ork_nob = Model("Ork Nob", 5, 2, 4, weapon = Weapon("Big Choppa", 3, 3, 7, 1, 2))
+ork_boy = Model("Ork Boy:", 5, 1, 5, None, weapon = Weapon("Choppa", 3, 3, 4, 1, 1))
+ork_nob = Model("Ork Nob:", 5, 2, 4, None, weapon = Weapon("Big Choppa", 3, 3, 7, 1, 2))
+bladeguard = Model("Bladeguard Veteran:", 4, 3, 3, 4, weapon = Weapon("Master-Crafted power weapon", 4, 3, 5, 1, 2))
 print(ork_boy)
 print(ork_nob)
+print(bladeguard)

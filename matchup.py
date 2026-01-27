@@ -6,32 +6,32 @@ class Matchup(): # Factory class to create preset matchups between different uni
     
     def create_ork_boy(self):
         choppa = Weapon("Choppa", 3, 3, 4, 1, 1)
-        return Model("Ork Boy", 5, 1, 5, choppa)
+        return Model("Ork Boy", 5, 1, 5, None, choppa)
     
     def create_ork_nob(self):
         power_claw = Weapon("Power Claw", 3, 4, 8, 2, 2)
-        return Model("Ork Nob", 5, 2, 4, power_claw)
+        return Model("Ork Nob", 5, 2, 4, None, power_claw)
     
     def create_assault_intercessor(self):
         chain_sword = Weapon("Astartes Chainsword", 4, 3, 4, 1, 1)
-        return Model("Assault Intercessor", 4, 2, 3, chain_sword)
+        return Model("Assault Intercessor", 4, 2, 3, None, chain_sword)
     
     def create_intercessor_sergeant(self):
         power_fist = Weapon("Power Fist", 3, 3, 8, 2, 2)
-        return Model("Intercessor Sergeant", 4, 2, 3, power_fist)
+        return Model("Intercessor Sergeant", 4, 2, 3, None, power_fist)
     
     def create_bladeguard_veteran(self):
         power_sword = Weapon("Master Crafted Power Sword", 4, 3, 5, 2, 2)
-        return Model("Bladeguard Veteran", 4, 3, 3, power_sword)
+        return Model("Bladeguard Veteran", 4, 3, 3, 4, power_sword)
     
     def create_hormaguant(self):
         scything_talon = Weapon("Scything Talons", 3, 4, 3, 1, 1)
-        return Model("Hormagaunt", 3, 1, 5, scything_talon)
+        return Model("Hormagaunt", 3, 1, 5, None, scything_talon)
     
     # PRESET MATCHUPS
     
     def orks_vs_space_marine_intercessors(self): # Creates a preset matchup between ork boyz and space marine intercessors
-        orks = Unit("Ork Boyz", self.create_ork_boy, 9)
+        orks = Unit("Ork Boyz", self.create_ork_boy, 14)
         orks.add_model(self.create_ork_nob()) # Adds a ork nob leader to the unit
         space_marine_intercessors = Unit("Assault Intercessors", self.create_assault_intercessor, 9)
         space_marine_intercessors.add_model(self.create_intercessor_sergeant()) # Adds a sergeant to the unit
