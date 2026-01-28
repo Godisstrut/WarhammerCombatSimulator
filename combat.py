@@ -71,7 +71,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
                 continue
             time.sleep(1)
             
-            target = defender.alive_models()[0]
+            target = defender.alive_models()[0] # Target is an alive model first in the list
             wound_needed = self.wound_rules(weapon.strength, target.toughness)
             wounds = 0
             for hit in range(hits): # Takes the successful hits and checks how many wounds go through
@@ -96,11 +96,11 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             print(f"Unsaved wounds: {failed_saves}")
             time.sleep(1)
             
-            for save in range(failed_saves):
+            for save in range(failed_saves): # Takes the failed saves and applies the correct damage
                 if defender.is_destroyed():
                     return kills_this_phase
                 target = defender.alive_models()[0]
-                target.current_wounds -= weapon.damage
+                target.current_wounds -= weapon.damage 
                 print(f"{target.name} takes {weapon.damage} damage! {target.name} has {target.current_wounds} wounds remaining ")
                 if target.current_wounds <= 0:
                     print(f"{target.name} is slain!")

@@ -83,7 +83,7 @@ class Main():
             time.sleep(1)
             round_number += 1
 
-        if unit_a.is_destroyed():
+        if unit_a.is_destroyed(): # Determines the winner of the combat
             print(f"{unit_b.name} wins with {len(unit_b.alive_models())} models remaining! ")
         else:
             print(f"{unit_a.name} wins with {len(unit_a.alive_models())} models remaining! ")
