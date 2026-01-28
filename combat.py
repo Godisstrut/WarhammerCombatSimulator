@@ -85,7 +85,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             failed_saves = 0
             for wound in range(wounds): # Takes the successful wounds and checks how many saves are failed
                 save_roll = self.dice_roll()
-                modified_save = target.save + weapon.ap # The actual save of a model, save - the armor piercing value. eg 3+ save with 1 ap becomes 4+
+                modified_save = target.save + weapon.ap # The required save of a model, save - the armor piercing value. eg 3+ save with 1 ap becomes 4+
                 if target.invul_save is not None:
                     save_needed = min(modified_save, target.invul_save)
                 else:

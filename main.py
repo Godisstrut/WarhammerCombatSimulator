@@ -9,7 +9,7 @@ class Main():
     
     def welcome_message(self): # Welcome message for the user
         print("="*20)
-        print("Warhammer 40k combat simulator! ")
+        print("Warhammer 40k Melee combat simulator! ")
         print("="*20)
         
     def menu(self): # Presents the user with a menu of preset matchups
@@ -28,8 +28,8 @@ class Main():
         combat = Combat()
         
         while True:
-            self.menu()
-            user_choice = input("Select an option: ")
+            self.menu() # Prints the menu until the user selects an option
+            user_choice = input("Select an option: ") 
             
             if user_choice == "1":
                 unit_a, unit_b = matchup.orks_vs_space_marine_intercessors()
@@ -77,7 +77,7 @@ class Main():
 
         round_number = 1
 
-        while not unit_a.is_destroyed() and not unit_b.is_destroyed():
+        while not unit_a.is_destroyed() and not unit_b.is_destroyed(): # Repeats rounds until one unit is destroyed
             print(f"=== ROUND: {round_number} ===")
             combat.combat_round(unit_a, unit_b, mode)
             time.sleep(1)
