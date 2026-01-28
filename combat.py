@@ -97,6 +97,8 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
             time.sleep(1)
             
             for save in range(failed_saves):
+                if defender.is_destroyed():
+                    return kills_this_phase
                 target = defender.alive_models()[0]
                 target.current_wounds -= weapon.damage
                 print(f"{target.name} takes {weapon.damage} damage! {target.name} has {target.current_wounds} wounds remaining ")
@@ -160,7 +162,7 @@ class Combat(): # Manages the combat phases between two units, indcluding attack
         total_wounds = 0
         total_failed_saves = 0
 
-        for model in attacker.alive_models():
+        for model in attacker.alive_models(): 
             attack_pools[model.weapon] += model.weapon.attacks
 
         print("Attacks: ")

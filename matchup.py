@@ -24,6 +24,10 @@ class Matchup(): # Factory class to create preset matchups between different uni
         power_sword = Weapon("Master Crafted Power Sword", 4, 3, 5, 2, 2)
         return Model("Bladeguard Veteran", 4, 3, 3, 4, power_sword)
     
+    def create_victrix_honourguard(self):
+        power_weapon = Weapon("Master Crafted Power Weapon", 5, 2, 5, 2, 2)
+        return Model("Victrix Honour Guard", 4, 3, 2, None, power_weapon)
+    
     def create_hormaguant(self):
         scything_talon = Weapon("Scything Talons", 3, 4, 3, 1, 1)
         return Model("Hormagaunt", 3, 1, 5, None, scything_talon)
@@ -51,6 +55,11 @@ class Matchup(): # Factory class to create preset matchups between different uni
         ork_nobz = Unit("Ork Nobz", self.create_ork_nob, 5)
         space_marine_bladeguard = Unit("Bladeguard Veterans", self.create_bladeguard_veteran, 3)
         return ork_nobz, space_marine_bladeguard
+    
+    def nobz_vs_victrix(self):
+        ork_nobz = Unit("Ork Nobz", self.create_ork_nob, 5)
+        space_marine_victrix = Unit("Victrix Honour Guards", self.create_victrix_honourguard, 3)
+        return ork_nobz, space_marine_victrix
     
     def warriors_vs_bladeguard_veterans(self):
         tyranid_warriors = Unit("Tyranid Warriors", self.create_tyranid_warrior, 3)
